@@ -1,4 +1,4 @@
-package lib.constants;
+package constants;
 
 public enum Headers {
     ALLOW("Allow: "),
