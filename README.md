@@ -1,11 +1,11 @@
 # HTTP Server - Java
 
-An implementation of an HTTP server made without libraries like HTTP.
+A hand-rolled HTTP Library.
 
 ## Installation
  
  - Clone this repository to your directory
- - Navigate to `HTTP-Server-Java`
+ - Navigate to `HTTP-Library-Java`
  
 ## Testing
  
@@ -15,8 +15,6 @@ An implementation of an HTTP server made without libraries like HTTP.
  
 ## Compiling
  
- `./gradlew build`
- 
-## Running
- 
- `java -jar ./build/libs/HTTP-Server-Java-1.0-SNAPSHOT.jar`
+Run: `./gradlew build`
+
+Find the output file in: `./build/libs/HTTP-Library-Java-1.0-SNAPSHOT.jar`  
