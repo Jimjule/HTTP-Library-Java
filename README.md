@@ -15,8 +15,6 @@ A hand-rolled HTTP Library.
  
 ## Compiling
  
- `./gradlew build`
- 
-## Running
- 
- `java -jar ./build/libs/HTTP-Library-Java-1.0-SNAPSHOT.jar`
+Run: `./gradlew build`
+
+Find the output file in: `./build/libs/HTTP-Library-Java-1.0-SNAPSHOT.jar`  
