@@ -15,8 +15,8 @@ public class Response {
         this.params = HTTP_VERSION + code + CRLF;
     }
 
-    public void setHeaders(String headers) {
-        this.headers += headers + CRLF;
+    public void addHeader(String header) {
+        this.headers += header + CRLF;
     }
 
     public void setBody(String body) {
