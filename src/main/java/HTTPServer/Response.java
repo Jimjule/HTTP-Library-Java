@@ -1,3 +1,5 @@
+package HTTPServer;
+
 public class Response {
 
     private String params;

@@ -1,4 +1,4 @@
-package constants;
+package HTTPServer.constants;
 
 import org.junit.jupiter.api.Test;
 
