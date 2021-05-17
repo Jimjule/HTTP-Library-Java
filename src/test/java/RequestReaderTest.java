@@ -30,7 +30,7 @@ class RequestReaderTest {
                 "Host: thing.example\n" +
                 "Content-Type: application/x-www-form-urlencoded\n" +
                 "Content-Length: 27\n" +
-                "\n" +
+                "\r\n" +
                 "field1=value1&field2=value2";
         String expectedResponse = "field1=value1&field2=value2";
         assertEquals(expectedResponse, RequestReader.getBody(input));
@@ -47,7 +47,7 @@ class RequestReaderTest {
                 "Accept-Encoding: gzip, deflate, br\n" +
                 "Connection: keep-alive\n" +
                 "Content-Length: 39\n" +
-                "\n" +
+                "\r\n" +
                 "{\n" +
                 "    \"id\": 25,\n" +
                 "    \"name\": \"Pikachu\"\n" +
