@@ -26,11 +26,11 @@ class RequestReaderTest {
 
     @Test
     public void readsSingleLineBody() {
-        String input = "POST /test HTTP/1.1\n" +
-                "Host: thing.example\n" +
-                "Content-Type: application/x-www-form-urlencoded\n" +
-                "Content-Length: 27\n" +
-                "\r\n" +
+        String input = "POST /test HTTP/1.1\r\n" +
+                "Host: thing.example\r\n" +
+                "Content-Type: application/x-www-form-urlencoded\r\n" +
+                "Content-Length: 27\r\n" +
+                "\r\n\r\n" +
                 "field1=value1&field2=value2";
         String expectedResponse = "field1=value1&field2=value2";
         assertEquals(expectedResponse, RequestReader.getBody(input));
@@ -38,23 +38,23 @@ class RequestReaderTest {
 
     @Test
     public void readsMultilineJSON() {
-        String input = "POST /pokemon/id/25 HTTP/1.1\n" +
-                "Content-Type: application/json\n" +
-                "User-Agent: PostmanRuntime/7.28.0\n" +
-                "Accept: */*\n" +
-                "Postman-Token: 8f627a29-9785-4ca7-8527-44ef2f4ae343\n" +
-                "Host: localhost:5000\n" +
-                "Accept-Encoding: gzip, deflate, br\n" +
-                "Connection: keep-alive\n" +
-                "Content-Length: 39\n" +
-                "\r\n" +
-                "{\n" +
-                "    \"id\": 25,\n" +
-                "    \"name\": \"Pikachu\"\n" +
+        String input = "POST /pokemon/id/25 HTTP/1.1\r\n" +
+                "Content-Type: application/json\r\n" +
+                "User-Agent: PostmanRuntime/7.28.0\r\n" +
+                "Accept: */*\r\n" +
+                "Postman-Token: 8f627a29-9785-4ca7-8527-44ef2f4ae343\r\n" +
+                "Host: localhost:5000\r\n" +
+                "Accept-Encoding: gzip, deflate, br\r\n" +
+                "Connection: keep-alive\r\n" +
+                "Content-Length: 39\r\n" +
+                "\r\n\r\n" +
+                "{\r\n" +
+                "    \"id\": 25,\r\n" +
+                "    \"name\": \"Pikachu\"\r\n" +
                 "}";
-        String expectedResponse = "{\n" +
-                "    \"id\": 25,\n" +
-                "    \"name\": \"Pikachu\"\n" +
+        String expectedResponse = "{\r\n" +
+                "    \"id\": 25,\r\n" +
+                "    \"name\": \"Pikachu\"\r\n" +
                 "}";
         assertEquals(expectedResponse, RequestReader.getBody(input));
     }

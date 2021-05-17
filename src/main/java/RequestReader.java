@@ -15,8 +15,8 @@ public class RequestReader {
         StringBuilder body = new StringBuilder();
         String[] inputLines;
         if (request.contains("Content-Length")) {
-            inputLines = request.split("\n");
-            body.append(inputLines[inputLines.length - 1]);
+            inputLines = request.split("\r\n\r\n");
+            body.append(inputLines[inputLines.length - 1].trim());
         }
         return body.toString();
     }
