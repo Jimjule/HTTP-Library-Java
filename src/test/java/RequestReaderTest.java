@@ -78,7 +78,7 @@ class RequestReaderTest {
                 "Content-Type: application/json\r\n" +
                 "User-Agent: PostmanRuntime/7.28.0\r\n" +
                 "Accept: */*\r\n" +
-                "Postman-Token: 8f627a29-9785-4ca7-8527-44ef2f4ae343\r\n" +
+                "Postman-Token: numb3rs-w0rdsn-da5he5\r\n" +
                 "Host: localhost:5000\r\n" +
                 "Accept-Encoding: gzip, deflate, br\r\n" +
                 "Connection: keep-alive\r\n" +
