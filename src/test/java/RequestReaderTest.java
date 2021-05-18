@@ -40,6 +40,18 @@ class RequestReaderTest {
     }
 
     @Test
+    public void returnsParams() {
+        String input = "POST /test HTTP/1.1\r\n" +
+                "Host: thing.example\r\n" +
+                "Content-Type: application/x-www-form-urlencoded\r\n" +
+                "Content-Length: 27\r\n" +
+                "\r\n\r\n" +
+                "field1=value1&field2=value2";
+        String expectedResponse = "POST /test HTTP/1.1";
+        assertEquals(expectedResponse, RequestReader.getRequestParams(input));
+    }
+
+    @Test
     public void readsSingleLineBody() {
         String input = "POST /test HTTP/1.1\r\n" +
                 "Host: thing.example\r\n" +
