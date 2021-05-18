@@ -6,6 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class RequestReaderTest {
     private String headRequest = "GET /head_request HTTP/1.1";
     private String optionsRequest = "OPTIONS /method_options2 HTTP/1.1\n";
+    private String postmanInput = "POST /pokemon/id/25 HTTP/1.1\r\n" +
+            "Content-Type: application/json\r\n" +
+            "User-Agent: PostmanRuntime/7.28.0\r\n" +
+            "Accept: */*\r\n" +
+            "Postman-Token: numb3rs-w0rdsn-da5he5\r\n" +
+            "Host: localhost:5000\r\n" +
+            "Accept-Encoding: gzip, deflate, br\r\n" +
+            "Connection: keep-alive\r\n" +
+            "Content-Length: 39\r\n" +
+            "\r\n\r\n" +
+            "{\r\n" +
+            "    \"id\": 25,\r\n" +
+            "    \"name\": \"Pikachu\"\r\n" +
+            "}";
 
     @Test
     public void returnsParamsGET() {
@@ -51,44 +65,16 @@ class RequestReaderTest {
 
     @Test
     public void readsMultilineJSON() {
-        String input = "POST /pokemon/id/25 HTTP/1.1\r\n" +
-                "Content-Type: application/json\r\n" +
-                "User-Agent: PostmanRuntime/7.28.0\r\n" +
-                "Accept: */*\r\n" +
-                "Postman-Token: numb3rs-w0rdsn-da5he5\r\n" +
-                "Host: localhost:5000\r\n" +
-                "Accept-Encoding: gzip, deflate, br\r\n" +
-                "Connection: keep-alive\r\n" +
-                "Content-Length: 39\r\n" +
-                "\r\n\r\n" +
-                "{\r\n" +
-                "    \"id\": 25,\r\n" +
-                "    \"name\": \"Pikachu\"\r\n" +
-                "}";
         String expectedResponse = "{\r\n" +
                 "    \"id\": 25,\r\n" +
                 "    \"name\": \"Pikachu\"\r\n" +
                 "}";
-        assertEquals(expectedResponse, RequestReader.getBody(input));
+        assertEquals(expectedResponse, RequestReader.getBody(postmanInput));
     }
 
     @Test
     public void getsPostmanAddress() {
-        String input = "POST /pokemon/id/25 HTTP/1.1\r\n" +
-                "Content-Type: application/json\r\n" +
-                "User-Agent: PostmanRuntime/7.28.0\r\n" +
-                "Accept: */*\r\n" +
-                "Postman-Token: numb3rs-w0rdsn-da5he5\r\n" +
-                "Host: localhost:5000\r\n" +
-                "Accept-Encoding: gzip, deflate, br\r\n" +
-                "Connection: keep-alive\r\n" +
-                "Content-Length: 39\r\n" +
-                "\r\n\r\n" +
-                "{\r\n" +
-                "    \"id\": 25,\r\n" +
-                "    \"name\": \"Pikachu\"\r\n" +
-                "}";
         String expectedResponse = "/pokemon/id/25";
-        assertEquals(expectedResponse, RequestReader.getRequestAddress(input));
+        assertEquals(expectedResponse, RequestReader.getRequestAddress(postmanInput));
     }
 }
