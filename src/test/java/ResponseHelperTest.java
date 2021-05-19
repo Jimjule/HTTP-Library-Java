@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ResponseHelperTest {
     Route route;
@@ -21,6 +22,12 @@ class ResponseHelperTest {
         Response response = new Response();
         ResponseHelper.setRouteNotFound(response);
         assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", response.getStringResponse());
+    }
+
+    @Test
+    public void testNullReturnsTrue() {
+        Response response = new Response();
+        assertTrue(ResponseHelper.checkRouteNotFound(response, null));
     }
 
     @Test
@@ -44,9 +51,8 @@ class ResponseHelperTest {
         String expectedResponse = "HTTP/1.1 200 OK\r\n\r\n";
         Response response = new Response();
         response.setParams(ResponseHelper.getResponseCode("GET", route));
-//        ResponseHelper.setResponseHeaders(response, route);
         route.performRequest("GET", response, "", "");
-        ResponseHelper.checkRouteParamsFound(response, route);
+        ResponseHelper.checkRouteParamsInvalid(response, route);
         assertEquals(expectedResponse, response.getStringResponse());
     }
 

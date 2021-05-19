@@ -20,6 +20,12 @@ class RequestReaderTest {
             "    \"id\": 25,\r\n" +
             "    \"name\": \"Pikachu\"\r\n" +
             "}";
+    private String exampleInput = "POST /test HTTP/1.1\r\n" +
+            "Host: thing.example\r\n" +
+            "Content-Type: application/x-www-form-urlencoded\r\n" +
+            "Content-Length: 27\r\n" +
+            "\r\n\r\n" +
+            "field1=value1&field2=value2";
 
     @Test
     public void returnsParamsGET() {
@@ -41,38 +47,20 @@ class RequestReaderTest {
 
     @Test
     public void returnsParams() {
-        String input = "POST /test HTTP/1.1\r\n" +
-                "Host: thing.example\r\n" +
-                "Content-Type: application/x-www-form-urlencoded\r\n" +
-                "Content-Length: 27\r\n" +
-                "\r\n\r\n" +
-                "field1=value1&field2=value2";
         String expectedResponse = "POST /test HTTP/1.1";
-        assertEquals(expectedResponse, RequestReader.getRequestParams(input));
+        assertEquals(expectedResponse, RequestReader.getRequestParams(exampleInput));
     }
 
     @Test
     public void readsSingleLineBody() {
-        String input = "POST /test HTTP/1.1\r\n" +
-                "Host: thing.example\r\n" +
-                "Content-Type: application/x-www-form-urlencoded\r\n" +
-                "Content-Length: 27\r\n" +
-                "\r\n\r\n" +
-                "field1=value1&field2=value2";
         String expectedResponse = "field1=value1&field2=value2";
-        assertEquals(expectedResponse, RequestReader.getBody(input));
+        assertEquals(expectedResponse, RequestReader.getBody(exampleInput));
     }
 
     @Test
     public void getsAddressFromFullRequest() {
-        String input = "POST /test HTTP/1.1\r\n" +
-                "Host: thing.example\r\n" +
-                "Content-Type: application/x-www-form-urlencoded\r\n" +
-                "Content-Length: 27\r\n" +
-                "\r\n\r\n" +
-                "field1=value1&field2=value2";
         String expectedResponse = "/test";
-        assertEquals(expectedResponse, RequestReader.getRequestAddress(input));
+        assertEquals(expectedResponse, RequestReader.getRequestAddress(exampleInput));
     }
 
     @Test

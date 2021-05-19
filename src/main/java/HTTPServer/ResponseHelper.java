@@ -6,11 +6,10 @@ public class ResponseHelper {
             setRouteNotFound(response);
             return true;
         }
-
         return false;
     }
 
-    public static void checkRouteParamsFound(Response response, Route route) {
+    public static void checkRouteParamsInvalid(Response response, Route route) {
         if (!route.getRouteIsFound()) {
             setRouteNotFound(response);
         }
