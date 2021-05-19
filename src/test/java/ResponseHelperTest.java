@@ -68,6 +68,14 @@ class ResponseHelperTest {
         assertEquals(Codes._405.getCode(), responseCode);
     }
 
+    @Test
+    public void testResponseHandler() {
+        Response response = ResponseHelper.responseHandler("GET", "/", "", new Response(), new TestRoute());
+        assertEquals("HTTP/1.1 200 OK\r\n" +
+                "Content-Type: text/html;charset=utf-8\r\n" +
+                "Allow: GET, HEAD\r\n\r\n", response.getStringResponse());
+    }
+
     private class TestRoute implements Route {
         private String body = null;
         private ArrayList<String> headers = new ArrayList<>();

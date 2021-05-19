@@ -25,6 +25,19 @@ public class ResponseHelper {
         return responseCode;
     }
 
+    public static Response responseHandler(String method, String path, String body, Response response, Route route) {
+        if (ResponseHelper.checkRouteNotFound(response, route)) return response;
+
+        String responseCode = ResponseHelper.getResponseCode(method, route);
+        response.setParams(responseCode);
+
+        ResponseHelper.setResponseHeaders(response, route);
+        route.performRequest(method, response, body, path);
+        ResponseHelper.checkRouteParamsInvalid(response, route);
+
+        return response;
+    }
+
     public static void setResponseHeaders(Response response, Route route) {
         for (String header : route.getHeaders()) {
             response.addHeader(header);
