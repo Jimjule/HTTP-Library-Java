@@ -21,7 +21,7 @@ public class ClientHandler extends Thread {
         try {
             in = clientSocket.getInputStream();
             out = new ByteArrayOutputStream();
-            request = getRequest();
+            request = RequestReader.getRequest(in);
 
             String parameters = RequestReader.getRequestParams(request);
             String parametersMethod = RequestReader.getRequestMethod(parameters);
@@ -43,17 +43,6 @@ public class ClientHandler extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private String getRequest() throws IOException {
-        int readIn;
-        StringBuilder input = new StringBuilder();
-        while ((readIn = in.read()) != -1 && in.available() != 0) {
-            input.append((char) readIn);
-        }
-        input.append((char) readIn);
-
-        return input.toString();
     }
 }
 

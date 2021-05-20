@@ -19,9 +19,34 @@ Run: `./gradlew build`
 
 Find the output file in: `./build/libs/HTTP-Library-Java-1.0-SNAPSHOT.jar`  
 
+## Getting Started
+
+Initialize an `HTTPServer` object and call its `start` method.
+`HTTPServer` takes two arguments, a port number integer e.g. `5000`, and a `Router` instance.
+
+- You will need to implement `Route` and `Router` objects according to their respective interfaces. For more details, see the documentation below.
+- Request logic is handled a `Route` implementation's `performRequest` method.
+- `HTTPServer` creates `ClientHandler` instances, which use `Route` implementations to build responses. 
+
+## Known Bugs
+
+`RequestReader.getRequestAddress` throws `ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1` when request are made through Postman.
+
 ## Documentation
 
 ### Contents
+
+#### HTTPServer
+
+Takes a port number and a `Router` object, and creates new `ClientHandler` objects with server sockets.
+Has a single callable method, `start`.
+
+#### ClientHandler
+
+A threaded client socket handler, initialized by HTTPServer with a `Socket` and a `Router`.
+Accepts via `InputStream` and outputs through `ByteArrayOutputStream`.
+Is the controller class of the package, calling the remaining classes to process the incoming request and construct the outgoing response.
+Has a single callable method, `run`.
 
 #### Response
 
@@ -37,8 +62,9 @@ An Object that constructs and formats responses to requests, containing:
 
 #### RequestReader
 
-Four static helper methods, which break down a request into its components so that each can be processed individually when constructing a response.
+Five static helper methods, which accept and break down a request into its components so that each can be processed individually when constructing a response.
 
+- `getRequest` takes the `InputStream` and returns the request as a String.
 - `getRequestParams` takes the whole request as a String, and returns the first line also as a String, containing the request method and address/route
 - `getRequestMethod` and `getRequestAddress` take the String returned by `getRequestParams` and return the method and address respectively
 - `getRequestBody` takes the whole request as a String, and returns the body also as a String
@@ -68,3 +94,7 @@ An Interface for route logic, mostly containing getters and setters for:
 - A boolean for tracking validity of routes (default `null`)
 
 It also contains the `performRequest` method, which should handle the request method (GET, POST, ...). This is the method that should handle setting the body of the response.
+
+#### Router
+
+An Interface with a single `getRoute` method, which takes a string path and returns a `Route` object.
