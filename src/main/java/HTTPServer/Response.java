@@ -1,3 +1,5 @@
+package HTTPServer;
+
 public class Response {
 
     private String params;
@@ -7,9 +9,6 @@ public class Response {
 
     private String CRLF = "\r\n";
     private String HTTP_VERSION = "HTTP/1.1 ";
-
-    public Response() {
-    }
 
     public void setParams(String code) {
         this.params = HTTP_VERSION + code + CRLF;
@@ -29,16 +28,16 @@ public class Response {
         this.file = file;
     }
 
+    public String getHeaders() {
+        return headers;
+    }
+
     public String getStringResponse() {
         return this.params + this.headers + CRLF + this.body;
     }
 
     public byte[] printHeaders() {
         return (this.params + this.headers + CRLF).getBytes();
-    }
-
-    public String getHeaders() {
-        return headers;
     }
 
     public byte[] printBody() {

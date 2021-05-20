@@ -1,13 +1,15 @@
+package HTTPServer;
+
 public class RequestReader {
-    public static String requestHandler(String request) {
+    public static String getRequestParams(String request) {
         return request.split("\r\n")[0];
     }
 
-    public static String findRequestMethod(String parameters) {
+    public static String getRequestMethod(String parameters) {
         return parameters.split(" ")[0];
     }
 
-    public static String findRequestAddress(String parameters) {
+    public static String getRequestAddress(String parameters) {
         return parameters.split(" ")[1];
     }
 

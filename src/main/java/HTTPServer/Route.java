@@ -1,4 +1,4 @@
-package route;
+package HTTPServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,4 +11,8 @@ public interface Route {
     String formatAllow();
 
     List<String> getAllow();
+
+    void performRequest(String requestType, Response response, String body, String path);
+
+    boolean getRouteIsFound();
 }

@@ -1,4 +1,4 @@
-package constants;
+package HTTPServer;
 
 public enum Codes {
     _200("200 OK"),

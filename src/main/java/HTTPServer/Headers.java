@@ -1,4 +1,4 @@
-package constants;
+package HTTPServer;
 
 public enum Headers {
     ALLOW("Allow: "),
