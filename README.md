@@ -67,6 +67,7 @@ This implementation of HTTP is not yet compliant, and although making it so is n
 - More complete headers, such as Date and Content-Size
 - Removing the need to `printBody` as well as `printFile` by removing `file` as a distinct variable in `Response`, and making body a `byte[]`
 - Testing the ability of the server to perform other methods like `PUT` and `DELETE` (implementation side)
+- A method to cleanly close the server (currently exit value 143)
 
 ### Classes
 
