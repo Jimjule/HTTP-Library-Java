@@ -34,7 +34,41 @@ Initialize an `HTTPServer` object and call its `start` method.
 
 ## Documentation
 
-### Contents
+### Design Decisions
+
+The first build of this library contained five small files:
+- RequestReader (static helper methods)
+- Response (state with getters and setters)
+- Route (Interface)
+- Codes (Enum)
+- Headers (Enum)
+
+While light on dependencies and small, it meant a lot of boilerplate was needed to implement the library.
+Another significant issue was that implementations were clearly not SOLID, and as they were refactored, it became clear that a lot of the code that was on implementation side should be in the library.
+
+Starting Implementation:
+- Main
+- HTTPServer (handles sockets with threading)
+- ClientHandler (the logic controller, initialized by HTTPServer)
+- Routes (directory of Route objects)
+- RouteMatcher (single method class that matches paths to Route objects)
+- ResponseBuilder (a mix of Route specific logic and abstract static methods)
+
+Starting with the `ResponseBuilder`, it was clear that there was more than one responsibility here, as it handled specific cases like `/redirect`, as well as having knowledge of methods like `GET` and `POST`, otherwise containing static methods.
+Adding a `performRequest` method to the `Route` interface allowed route-specific logic to be contained in the implementation of `Route`, allowing everything but static methods to be removed from `ResponseBuilder`. Those methods then moved into the library side as `ResponseHelper`. The two parts of the application were becoming more focused on their single responsibility, and routes were extensible.
+It was clear now that the only responsibility implementation side should have was passing `Route`s through `RouteMatcher`, so it was a straightforward task to move `HTTPServer` and `ClientHandler` over, only having to hard-code a socket into `HTTPServer`.
+Implementation side now only contains a 15 line `Main` class, `RouteMatcher`, a directory of `Route`s, and resources.
+One thing that made this refactor easier is that the application as a whole was designed with many (but not all, case in `ResponseBuilder`) dependencies injected, so that there was great flexibility in designing the library. 
+
+### Next Steps
+
+This implementation of HTTP is not yet compliant, and although making it so is not the aim of this project, there are things that I would implement given more time:
+- Adding some common response codes, primarily 201, 202, 400, and 403
+- More complete headers, such as Date and Content-Size
+- Removing the need to `printBody` as well as `printFile` by removing `file` as a distinct variable in `Response`, and making body a `byte[]`
+- Testing the ability of the server to perform other methods like `PUT` and `DELETE` (implementation side)
+
+### Classes
 
 #### HTTPServer
 
