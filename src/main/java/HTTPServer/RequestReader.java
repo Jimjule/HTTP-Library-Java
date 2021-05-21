@@ -1,6 +1,20 @@
 package HTTPServer;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class RequestReader {
+    public static String getRequest(InputStream in) throws IOException {
+        int readIn;
+        StringBuilder input = new StringBuilder();
+        while ((readIn = in.read()) != -1 && in.available() != 0) {
+            input.append((char) readIn);
+        }
+        input.append((char) readIn);
+
+        return input.toString();
+    }
+
     public static String getRequestParams(String request) {
         return request.split("\r\n")[0];
     }
